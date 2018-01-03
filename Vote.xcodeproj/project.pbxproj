@@ -12,6 +12,7 @@
 		045317A51FFCC44E0020DFB3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045317A31FFCC44E0020DFB3 /* Main.storyboard */; };
 		045317A71FFCC44E0020DFB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 045317A61FFCC44E0020DFB3 /* Assets.xcassets */; };
 		045317AA1FFCC44E0020DFB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045317A81FFCC44E0020DFB3 /* LaunchScreen.storyboard */; };
+		045317B41FFCCE9E0020DFB3 /* VoteListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045317B31FFCCE9E0020DFB3 /* VoteListTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		045317A61FFCC44E0020DFB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		045317A91FFCC44E0020DFB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		045317AB1FFCC44E0020DFB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		045317B31FFCCE9E0020DFB3 /* VoteListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +56,31 @@
 		0453179E1FFCC44E0020DFB3 /* Vote */ = {
 			isa = PBXGroup;
 			children = (
-				0453179F1FFCC44E0020DFB3 /* AppDelegate.swift */,
+				045317B21FFCCDF20020DFB3 /* Classes */,
+				045317B11FFCC4DB0020DFB3 /* Support Files */,
 				045317A11FFCC44E0020DFB3 /* ViewController.swift */,
 				045317A31FFCC44E0020DFB3 /* Main.storyboard */,
+			);
+			path = Vote;
+			sourceTree = "<group>";
+		};
+		045317B11FFCC4DB0020DFB3 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				0453179F1FFCC44E0020DFB3 /* AppDelegate.swift */,
 				045317A61FFCC44E0020DFB3 /* Assets.xcassets */,
 				045317A81FFCC44E0020DFB3 /* LaunchScreen.storyboard */,
 				045317AB1FFCC44E0020DFB3 /* Info.plist */,
 			);
-			path = Vote;
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		045317B21FFCCDF20020DFB3 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				045317B31FFCCE9E0020DFB3 /* VoteListTableViewController.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				045317A21FFCC44E0020DFB3 /* ViewController.swift in Sources */,
+				045317B41FFCCE9E0020DFB3 /* VoteListTableViewController.swift in Sources */,
 				045317A01FFCC44E0020DFB3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,7 +295,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = Vote/Info.plist;
+				INFOPLIST_FILE = "Vote/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.modi.Vote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -289,7 +309,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = Vote/Info.plist;
+				INFOPLIST_FILE = "Vote/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.modi.Vote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
