@@ -26,7 +26,7 @@ class VoteListCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var voteBtnDelegate: VoteBtnDelegate?
+    weak var voteBtnDelegate: VoteBtnDelegate?
     
     private func setupUI() {
         //添加视图

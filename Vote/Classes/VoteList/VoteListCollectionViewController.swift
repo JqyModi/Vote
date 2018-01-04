@@ -24,7 +24,7 @@ class VoteListCollectionViewController: UICollectionViewController {
         super.init(collectionViewLayout: layout)
         
         //添加头部布局
-        layout.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 80)
+        layout.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 120)
         
         setupUI()
         
@@ -33,16 +33,41 @@ class VoteListCollectionViewController: UICollectionViewController {
     }
     
     private func setupUI() {
-        collectionView?.backgroundColor = UIColor.init(white: 0.93, alpha: 1)
+//        collectionView?.backgroundColor = UIColor.init(white: 0.93, alpha: 1)
+        collectionView?.backgroundColor = UIColor.white
+        collectionView?.addSubview(searchBar)
         collectionView?.addSubview(headerBtn)
+        
+        searchBar.delegate = self
+        
+//        searchBar.snp.makeConstraints { (make) in
+//            make.left.top.right.equalTo(collectionView!).offset(10)
+//            make.height.equalTo(50)
+//        }
         
         headerBtn.snp.makeConstraints { (make) in
             make.centerX.equalTo((collectionView?.snp.centerX)!)
-            make.top.equalTo((collectionView?.snp.top)!).offset(20)
+            make.top.equalTo(searchBar.snp.bottom).offset(10)
             make.height.equalTo(30)
             make.width.equalTo(200)
         }
+        
     }
+    
+    private var searchBar: UISearchBar = {
+        let search = UISearchBar()
+        search.contentMode = .redraw
+        search.translatesAutoresizingMaskIntoConstraints = false
+//        search.keyboardAppearance = UIKeyboardAppearance.light
+//        search.backgroundImage(for: UIBarPosition.top, barMetrics: UIBarMetrics.default)
+        search.searchBarStyle = .minimal
+//        search.text = "输入关键字搜索"
+//        search.placeholder = "出来吗？"
+        search.frame = CGRect(x: 0, y: 0, width: 375, height: 56)
+//        search.backgroundColor = UIColor.green
+        search.showsCancelButton = true
+        return search
+    }()
     
     private var headerBtn: UIButton = {
         let header = UIButton()
@@ -129,4 +154,8 @@ extension VoteListCollectionViewController: VoteBtnDelegate {
         alert.addAction(ok)
         self.present(alert, animated: true, completion: nil)
     }
+}
+
+extension VoteListCollectionViewController: UISearchBarDelegate {
+    
 }
