@@ -7,15 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0428CFBD1FFDA85D001E6D56 /* VoteListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428CFBC1FFDA85D001E6D56 /* VoteListTableViewCell.swift */; };
+		0428CFBF1FFDA8A3001E6D56 /* VoteListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428CFBE1FFDA8A3001E6D56 /* VoteListModel.swift */; };
+		0428CFC11FFDBC90001E6D56 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 0428CFC01FFDBC90001E6D56 /* test.json */; };
+		0428CFC31FFDC224001E6D56 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428CFC21FFDC224001E6D56 /* Extension.swift */; };
+		0428CFC61FFDDA8D001E6D56 /* VoteListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428CFC51FFDDA8D001E6D56 /* VoteListCollectionViewController.swift */; };
+		0428CFC81FFDF43B001E6D56 /* VoteListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428CFC71FFDF43B001E6D56 /* VoteListCollectionViewCell.swift */; };
 		045317A01FFCC44E0020DFB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453179F1FFCC44E0020DFB3 /* AppDelegate.swift */; };
 		045317A21FFCC44E0020DFB3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045317A11FFCC44E0020DFB3 /* ViewController.swift */; };
 		045317A51FFCC44E0020DFB3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045317A31FFCC44E0020DFB3 /* Main.storyboard */; };
 		045317A71FFCC44E0020DFB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 045317A61FFCC44E0020DFB3 /* Assets.xcassets */; };
 		045317AA1FFCC44E0020DFB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045317A81FFCC44E0020DFB3 /* LaunchScreen.storyboard */; };
 		045317B41FFCCE9E0020DFB3 /* VoteListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045317B31FFCCE9E0020DFB3 /* VoteListTableViewController.swift */; };
+		ED68EC14EE5D33F964C405EE /* Pods_Vote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DCD3EEB5E58F7386D12A8EE /* Pods_Vote.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0428CFBC1FFDA85D001E6D56 /* VoteListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListTableViewCell.swift; sourceTree = "<group>"; };
+		0428CFBE1FFDA8A3001E6D56 /* VoteListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListModel.swift; sourceTree = "<group>"; };
+		0428CFC01FFDBC90001E6D56 /* test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
+		0428CFC21FFDC224001E6D56 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		0428CFC51FFDDA8D001E6D56 /* VoteListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListCollectionViewController.swift; sourceTree = "<group>"; };
+		0428CFC71FFDF43B001E6D56 /* VoteListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListCollectionViewCell.swift; sourceTree = "<group>"; };
 		0453179C1FFCC44E0020DFB3 /* Vote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0453179F1FFCC44E0020DFB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		045317A11FFCC44E0020DFB3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +37,9 @@
 		045317A91FFCC44E0020DFB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		045317AB1FFCC44E0020DFB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		045317B31FFCCE9E0020DFB3 /* VoteListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListTableViewController.swift; sourceTree = "<group>"; };
+		14DB66DAACAB60B13418EC25 /* Pods-Vote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vote.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Vote/Pods-Vote.debug.xcconfig"; sourceTree = "<group>"; };
+		4204E83721AF019F0DF167E9 /* Pods-Vote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vote.release.xcconfig"; path = "Pods/Target Support Files/Pods-Vote/Pods-Vote.release.xcconfig"; sourceTree = "<group>"; };
+		8DCD3EEB5E58F7386D12A8EE /* Pods_Vote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +47,40 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED68EC14EE5D33F964C405EE /* Pods_Vote.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0428CFBB1FFDA819001E6D56 /* VoteList */ = {
+			isa = PBXGroup;
+			children = (
+				045317B31FFCCE9E0020DFB3 /* VoteListTableViewController.swift */,
+				0428CFBC1FFDA85D001E6D56 /* VoteListTableViewCell.swift */,
+				0428CFBE1FFDA8A3001E6D56 /* VoteListModel.swift */,
+				0428CFC01FFDBC90001E6D56 /* test.json */,
+				0428CFC51FFDDA8D001E6D56 /* VoteListCollectionViewController.swift */,
+				0428CFC71FFDF43B001E6D56 /* VoteListCollectionViewCell.swift */,
+			);
+			path = VoteList;
+			sourceTree = "<group>";
+		};
+		0428CFC41FFDCC3A001E6D56 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		045317931FFCC44E0020DFB3 = {
 			isa = PBXGroup;
 			children = (
 				0453179E1FFCC44E0020DFB3 /* Vote */,
 				0453179D1FFCC44E0020DFB3 /* Products */,
+				0686A8BC91104EF4A5624A65 /* Pods */,
+				6593266402503E8E7CB87798 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,6 +95,7 @@
 		0453179E1FFCC44E0020DFB3 /* Vote */ = {
 			isa = PBXGroup;
 			children = (
+				0428CFC41FFDCC3A001E6D56 /* Tools */,
 				045317B21FFCCDF20020DFB3 /* Classes */,
 				045317B11FFCC4DB0020DFB3 /* Support Files */,
 				045317A11FFCC44E0020DFB3 /* ViewController.swift */,
@@ -67,6 +107,7 @@
 		045317B11FFCC4DB0020DFB3 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				0428CFC21FFDC224001E6D56 /* Extension.swift */,
 				0453179F1FFCC44E0020DFB3 /* AppDelegate.swift */,
 				045317A61FFCC44E0020DFB3 /* Assets.xcassets */,
 				045317A81FFCC44E0020DFB3 /* LaunchScreen.storyboard */,
@@ -78,9 +119,26 @@
 		045317B21FFCCDF20020DFB3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				045317B31FFCCE9E0020DFB3 /* VoteListTableViewController.swift */,
+				0428CFBB1FFDA819001E6D56 /* VoteList */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		0686A8BC91104EF4A5624A65 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				14DB66DAACAB60B13418EC25 /* Pods-Vote.debug.xcconfig */,
+				4204E83721AF019F0DF167E9 /* Pods-Vote.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		6593266402503E8E7CB87798 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8DCD3EEB5E58F7386D12A8EE /* Pods_Vote.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -90,9 +148,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 045317AE1FFCC44E0020DFB3 /* Build configuration list for PBXNativeTarget "Vote" */;
 			buildPhases = (
+				640400AE59DAFC088025F6E2 /* [CP] Check Pods Manifest.lock */,
 				045317981FFCC44E0020DFB3 /* Sources */,
 				045317991FFCC44E0020DFB3 /* Frameworks */,
 				0453179A1FFCC44E0020DFB3 /* Resources */,
+				F15C1C08E864604AE1E70E95 /* [CP] Embed Pods Frameworks */,
+				2B2D9B1DECE85F445D173088 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -143,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				045317AA1FFCC44E0020DFB3 /* LaunchScreen.storyboard in Resources */,
+				0428CFC11FFDBC90001E6D56 /* test.json in Resources */,
 				045317A71FFCC44E0020DFB3 /* Assets.xcassets in Resources */,
 				045317A51FFCC44E0020DFB3 /* Main.storyboard in Resources */,
 			);
@@ -150,14 +212,67 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2B2D9B1DECE85F445D173088 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Vote/Pods-Vote-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		640400AE59DAFC088025F6E2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F15C1C08E864604AE1E70E95 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Vote/Pods-Vote-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		045317981FFCC44E0020DFB3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0428CFC81FFDF43B001E6D56 /* VoteListCollectionViewCell.swift in Sources */,
 				045317A21FFCC44E0020DFB3 /* ViewController.swift in Sources */,
+				0428CFBF1FFDA8A3001E6D56 /* VoteListModel.swift in Sources */,
+				0428CFC61FFDDA8D001E6D56 /* VoteListCollectionViewController.swift in Sources */,
 				045317B41FFCCE9E0020DFB3 /* VoteListTableViewController.swift in Sources */,
+				0428CFC31FFDC224001E6D56 /* Extension.swift in Sources */,
 				045317A01FFCC44E0020DFB3 /* AppDelegate.swift in Sources */,
+				0428CFBD1FFDA85D001E6D56 /* VoteListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +407,7 @@
 		};
 		045317AF1FFCC44E0020DFB3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 14DB66DAACAB60B13418EC25 /* Pods-Vote.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -306,6 +422,7 @@
 		};
 		045317B01FFCC44E0020DFB3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4204E83721AF019F0DF167E9 /* Pods-Vote.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
