@@ -10,14 +10,14 @@ import UIKit
 import SnapKit
 
 protocol VoteBtnDelegate: NSObjectProtocol {
-    func vote()
+    func vote(cell: VoteListCollectionViewCell)
 }
 
 class VoteListCollectionViewCell: UICollectionViewCell {
     
     @objc private func voteBtnDidClick() {
         debugPrint(#function)
-        voteBtnDelegate?.vote()
+        voteBtnDelegate?.vote(cell: self)
     }
     
     var vote: VoteListModel? {

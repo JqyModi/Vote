@@ -11,6 +11,15 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class VoteListCollectionViewController: UICollectionViewController {
+    
+    @objc private func headerBtnDidClick() {
+        debugPrint(#function)
+        
+        let detail = VoteRankTableViewController()
+        detail.title = "排名"
+        self.navigationController?.pushViewController(detail, animated: true)
+    }
+    
     var voteList: [VoteListModel]?
     
     init() {
@@ -33,24 +42,29 @@ class VoteListCollectionViewController: UICollectionViewController {
     }
     
     private func setupUI() {
-//        collectionView?.backgroundColor = UIColor.init(white: 0.93, alpha: 1)
-        collectionView?.backgroundColor = UIColor.white
-        collectionView?.addSubview(searchBar)
+        collectionView?.backgroundColor = UIColor.init(white: 0.93, alpha: 1)
+        
         collectionView?.addSubview(headerBtn)
+        collectionView?.addSubview(searchBar)
         
         searchBar.delegate = self
         
-//        searchBar.snp.makeConstraints { (make) in
-//            make.left.top.right.equalTo(collectionView!).offset(10)
-//            make.height.equalTo(50)
-//        }
-        
         headerBtn.snp.makeConstraints { (make) in
             make.centerX.equalTo((collectionView?.snp.centerX)!)
-            make.top.equalTo(searchBar.snp.bottom).offset(10)
+            make.top.equalTo(collectionView!).offset(80)
             make.height.equalTo(30)
             make.width.equalTo(200)
         }
+        
+        searchBar.snp.makeConstraints { (make) in
+            make.centerX.equalTo(collectionView!)
+            make.bottom.equalTo(headerBtn).offset(-46)
+            make.height.equalTo(56)
+            //设置宽度：否则无法显示
+            make.width.equalTo(UIScreen.main.bounds.width)
+        }
+        
+        headerBtn.addTarget(self, action: "headerBtnDidClick", for: .touchUpInside)
         
     }
     
@@ -58,14 +72,12 @@ class VoteListCollectionViewController: UICollectionViewController {
         let search = UISearchBar()
         search.contentMode = .redraw
         search.translatesAutoresizingMaskIntoConstraints = false
-//        search.keyboardAppearance = UIKeyboardAppearance.light
-//        search.backgroundImage(for: UIBarPosition.top, barMetrics: UIBarMetrics.default)
+        search.keyboardAppearance = UIKeyboardAppearance.light
         search.searchBarStyle = .minimal
-//        search.text = "输入关键字搜索"
-//        search.placeholder = "出来吗？"
-        search.frame = CGRect(x: 0, y: 0, width: 375, height: 56)
+        search.placeholder = "输入关键字搜索"
 //        search.backgroundColor = UIColor.green
         search.showsCancelButton = true
+        search.sizeToFit()
         return search
     }()
     
@@ -140,7 +152,7 @@ class VoteListCollectionViewController: UICollectionViewController {
 }
 
 extension VoteListCollectionViewController: VoteBtnDelegate {
-    func vote() {
+    func vote(cell: VoteListCollectionViewCell) {
         debugPrint(#function)
         //弹出一个提示框
         let alert = UIAlertController(title: "温馨提示", message: "为她投票前需要观看视频5分钟 ~ 是否继续？", preferredStyle: .alert)
@@ -149,6 +161,11 @@ extension VoteListCollectionViewController: VoteBtnDelegate {
         }
         let ok = UIAlertAction(title: "确定", style: .destructive) { (action) in
             debugPrint(#function)
+            let detail = VoteDetailViewController()
+            let nav = UINavigationController(rootViewController: detail)
+            detail.vote = cell.vote
+            detail.title = "投票详情页"
+            self.navigationController?.pushViewController(detail, animated: true)
         }
         alert.addAction(cancel)
         alert.addAction(ok)

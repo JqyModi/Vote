@@ -9,7 +9,7 @@
 import UIKit
 
 private let reuseIdentifier = "reuseIdentifier"
-class VoteListTableViewController: UITableViewController {
+class VoteRankTableViewController: UITableViewController {
 
     var voteList: [VoteListModel]?
     
@@ -45,7 +45,9 @@ class VoteListTableViewController: UITableViewController {
     }
     
     private func setupUI() {
-        tableView.register(VoteListTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.tableFooterView = UIView()
+        tableView.backgroundColor = UIColor.init(white: 0.93, alpha: 1)
+        tableView.register(VoteRankTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
     }
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -54,10 +56,11 @@ class VoteListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! VoteListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! VoteRankTableViewCell
 
         // Configure the cell...
         cell.vote = voteList?[indexPath.row]
+        cell.item = indexPath.row
 
         return cell
     }
