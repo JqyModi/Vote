@@ -78,9 +78,70 @@ class VoteDetailViewController: UIViewController {
         setupUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        debugPrint("活动截止情况：\(isOverdue())")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    /**
+     *  Desc: 判断当前活动是否过期
+     *  Param:
+     */
+    private func isOverdue() -> Bool {
+        //记录活动是否过期
+        var result = true
+        //判断当前活动是否过期
+        //http://192.168.0.153:91/api/activity
+        //let urlStr = "http://shiyan360.cn/api/activity"
+        let urlStr = "http://192.168.0.153:91/api/activity"
+        NetworkTools.sharedSingleton.requestDeadline(urlStr: urlStr) { (data, response, error) in
+            if error == nil {
+                debugPrint("data = \(data)")
+                debugPrint("response = \(response)")
+                
+                //处理服务器返回来的数据
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves)
+                    if let dict = json as? [String : Any] {
+                        debugPrint("dict = \(dict)")
+                        let endTime = dict["endtime"] as? TimeInterval
+                        debugPrint("endTime = \(endTime)")
+                        //比较当前时间与截止时间
+                        result = self.compareEndTime(dict: dict)
+                    }
+                }catch {
+                    debugPrint("catch error = \(error)")
+                }
+                
+            }else{
+                debugPrint("error = \(error)")
+            }
+        }
+        return result
+    }
+    
+    /**
+     *  Desc: 比较当前时间与获取截止时间
+     *  Param: dict 包含活动截止时间
+     */
+    private func compareEndTime(dict: [String : Any]?) -> Bool {
+        //获取当前时间
+        let currentTime = NSTimeIntervalSince1970
+        debugPrint("currentTime = \(currentTime)")
+        //获取活动截止时间
+        let activityTime = dict!["endtime"] as! String
+        debugPrint("activityTime = \(activityTime)")
+        if currentTime > Double(activityTime)! {
+            debugPrint("活动已过期 ~")
+            return false
+        }else {
+            debugPrint("活动有效 ~")
+            return true
+        }
     }
     
     private func setupUI() {

@@ -15,6 +15,7 @@
 		0428CFC61FFDDA8D001E6D56 /* VoteListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428CFC51FFDDA8D001E6D56 /* VoteListCollectionViewController.swift */; };
 		0428CFC81FFDF43B001E6D56 /* VoteListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428CFC71FFDF43B001E6D56 /* VoteListCollectionViewCell.swift */; };
 		0441AD4B1FFF5A7D000D98C1 /* VotePlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0441AD4A1FFF5A7D000D98C1 /* VotePlayerControlView.swift */; };
+		0441AD4D1FFF6976000D98C1 /* NetworkTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0441AD4C1FFF6976000D98C1 /* NetworkTools.swift */; };
 		045317A01FFCC44E0020DFB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453179F1FFCC44E0020DFB3 /* AppDelegate.swift */; };
 		045317A21FFCC44E0020DFB3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045317A11FFCC44E0020DFB3 /* ViewController.swift */; };
 		045317A51FFCC44E0020DFB3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045317A31FFCC44E0020DFB3 /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 		0428CFC51FFDDA8D001E6D56 /* VoteListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListCollectionViewController.swift; sourceTree = "<group>"; };
 		0428CFC71FFDF43B001E6D56 /* VoteListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListCollectionViewCell.swift; sourceTree = "<group>"; };
 		0441AD4A1FFF5A7D000D98C1 /* VotePlayerControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotePlayerControlView.swift; sourceTree = "<group>"; };
+		0441AD4C1FFF6976000D98C1 /* NetworkTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTools.swift; sourceTree = "<group>"; };
 		0453179C1FFCC44E0020DFB3 /* Vote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0453179F1FFCC44E0020DFB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		045317A11FFCC44E0020DFB3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 		0428CFC41FFDCC3A001E6D56 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				0441AD4C1FFF6976000D98C1 /* NetworkTools.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0428CFC81FFDF43B001E6D56 /* VoteListCollectionViewCell.swift in Sources */,
+				0441AD4D1FFF6976000D98C1 /* NetworkTools.swift in Sources */,
 				045317A21FFCC44E0020DFB3 /* ViewController.swift in Sources */,
 				0428CFBF1FFDA8A3001E6D56 /* VoteListModel.swift in Sources */,
 				0428CFC61FFDDA8D001E6D56 /* VoteListCollectionViewController.swift in Sources */,
