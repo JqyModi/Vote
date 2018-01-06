@@ -102,7 +102,7 @@ class NetworkTools: NSObject {
      *  Desc: 获取搜索结果
      *  Param: http://shiyan360.cn/api/vote_search?keyword=66&page=1
      */
-    func requestSearchData(urlStr: String, keyword: String, page: Int = 0,completionHandler: @escaping ((_ votes: [VoteListModel]) -> ())) {
+    func requestSearchData(urlStr: String, keyword: String, page: Int = 0,completionHandler: @escaping ((_ votes: [VoteListModel]?) -> ())) {
         
         var voteList: [VoteListModel]?
         
@@ -123,9 +123,9 @@ class NetworkTools: NSObject {
                                 let vote = VoteListModel(dict: item)
                                 voteList?.append(vote)
                             }
-                            //回调
-                            completionHandler(voteList!)
                         }
+                        //回调
+                        completionHandler(voteList)
                     }
                 }catch {
                     debugPrint("catch error = \(error)")
@@ -161,9 +161,9 @@ class NetworkTools: NSObject {
                                 let vote = VoteListModel(dict: item)
                                 voteList?.append(vote)
                             }
-                            //回调
-                            completionHandler(voteList)
                         }
+                        //回调
+                        completionHandler(voteList)
                     }
                 }catch {
                     debugPrint("catch error = \(error)")

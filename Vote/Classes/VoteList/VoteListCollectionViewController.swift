@@ -165,11 +165,38 @@ class VoteListCollectionViewController: UICollectionViewController {
             self?.voteList = votes
             
             debugPrint("currentThread 1 ----> \(Thread.current)")
-            self?.collectionView?.reloadData()
+            DispatchQueue.main.async {
+                self?.collectionView?.reloadData()
+                //菊花停止转动
+                if (self?.refresh.isRefreshing)! {
+                    self?.refresh.endRefreshing()
+                }
+            }
             
-            //菊花停止转动
-            if (self?.refresh.isRefreshing)! {
-                self?.refresh.endRefreshing()
+        }
+        
+    }
+    
+    @objc private func loadMoreData() {
+        //联网获取数据源
+        let url = "http://shiyan360.cn/api/vote_video"
+        currentPage = currentPage + 1
+        //内部引用self：会造成循环引用 加上weak
+        NetworkTools.sharedSingleton.requestVoteList(urlStr: url, page: currentPage) { [weak self] (votes) in
+            
+            if votes != nil {
+                self?.voteList = (self?.voteList)! + votes!
+                debugPrint("currentThread 1 ----> \(Thread.current)")
+                DispatchQueue.main.async {
+                    //菊花停止转动
+                    if (self?.indicatorView.isAnimating)! {
+                        self?.indicatorView.stopAnimating()
+                    }
+                    self?.collectionView?.reloadData()
+                }
+            }else {
+                //隐藏尾部视图
+                
             }
         }
         
@@ -210,13 +237,7 @@ class VoteListCollectionViewController: UICollectionViewController {
         cell.voteBtnDelegate = self
         
         debugPrint("indexPath 1 ------> \(indexPath)")
-        //设置上拉加载数据操作：当Cell是上拉加载布局Cell时且菊花没有滚动状态下开始上拉加载数据
-//        if indexPath.row == statuses.count - 1 && !indicatorView.isAnimating {
-//            //开始上拉加载
-//            indicatorView.startAnimating()
-//            loadData()
-//            debugPrint("开始加载更多数据")
-//        }
+        
         return cell
     }
 }
@@ -308,21 +329,24 @@ extension VoteListCollectionViewController {
         
         let footView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerViewIdentifier, for: indexPath)
         footView.backgroundColor = UIColor.randomColor
-        //添加上拉加载视图
-        footView.addSubview(indicatorView)
-        //添加约束
+        //添加上拉加载视图约束
         indicatorView.snp.makeConstraints { (make) in
             make.edges.equalTo(footView)
         }
-        indicatorView.startAnimating()
+//        indicatorView.startAnimating()
         return footView
     }
     
     override func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-        <#code#>
-    }
-    override func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
-        <#code#>
+        debugPrint("willDisplaySupplementaryView ------>indexPath.Item = \(elementKind)")
+        
+        //设置上拉加载数据操作：当Cell是上拉加载布局Cell时且菊花没有滚动状态下开始上拉加载数据
+        if elementKind == UICollectionElementKindSectionFooter && !indicatorView.isAnimating {
+            //开始上拉加载
+            indicatorView.startAnimating()
+            loadMoreData()
+            debugPrint("开始加载更多数据")
+        }
     }
     
 }
