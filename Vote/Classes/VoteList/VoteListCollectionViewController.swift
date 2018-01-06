@@ -31,6 +31,8 @@ class VoteListCollectionViewController: UICollectionViewController {
     
     var voteList: [VoteListModel]?
     
+    var currentPage = 0
+    
     init() {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 10
@@ -53,7 +55,7 @@ class VoteListCollectionViewController: UICollectionViewController {
     
     private func setupUI() {
         collectionView?.backgroundColor = UIColor.init(white: 0.93, alpha: 1)
-        //加入上拉加载视图
+        //加入上拉加载视图：删除不行？
         collectionView?.addSubview(indicatorView)
         
         //加入下拉刷新
@@ -206,7 +208,15 @@ class VoteListCollectionViewController: UICollectionViewController {
         // Configure the cell
         cell.vote = voteList?[indexPath.item]
         cell.voteBtnDelegate = self
-        debugPrint("cell: \(indexPath.item)")
+        
+        debugPrint("indexPath 1 ------> \(indexPath)")
+        //设置上拉加载数据操作：当Cell是上拉加载布局Cell时且菊花没有滚动状态下开始上拉加载数据
+//        if indexPath.row == statuses.count - 1 && !indicatorView.isAnimating {
+//            //开始上拉加载
+//            indicatorView.startAnimating()
+//            loadData()
+//            debugPrint("开始加载更多数据")
+//        }
         return cell
     }
 }
@@ -293,6 +303,9 @@ extension VoteListCollectionViewController: UISearchBarDelegate {
 
 extension VoteListCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        debugPrint("indexPath 2 ------> \(indexPath)")
+        
         let footView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerViewIdentifier, for: indexPath)
         footView.backgroundColor = UIColor.randomColor
         //添加上拉加载视图
@@ -303,6 +316,13 @@ extension VoteListCollectionViewController {
         }
         indicatorView.startAnimating()
         return footView
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+        <#code#>
+    }
+    override func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
+        <#code#>
     }
     
 }
