@@ -9,12 +9,20 @@
 import UIKit
 
 class VoteListModel: NSObject {
+    /**
+    "id":"3975",
+    "name":"666",
+    "piao":"5",
+    "remark":"adsas",
+    "img_url_s":"./thumb_1.jpg",
+    "video_url":"2.mp4"
+     */
     
-    @objc var title: String?
-    @objc var total: String?
-    @objc var desc: String?
-    @objc var image: String?
-    @objc var video: String?
+    @objc var name: String?
+    @objc var piao: String?
+    @objc var remark: String?
+    @objc var img_url_s: String?
+    @objc var video_url: String?
     
     init(dict: [String:Any]?) {
         super.init()
@@ -35,8 +43,8 @@ class VoteListModel: NSObject {
             let nameAddr = property_getName(pro)
             //将UnsafePointer<Int8>转为String
             let name = NSString(utf8String: nameAddr)
-            debugPrint("name ----> \(name)")
+//            debugPrint("name ----> \(name)")
         }
-        return dictionaryWithValues(forKeys: ["title","total","desc","image","video"]).description
+        return dictionaryWithValues(forKeys: ["name","piao","remark","img_url_s","video_url"]).description
     }
 }

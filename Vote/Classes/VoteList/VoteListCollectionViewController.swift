@@ -9,6 +9,14 @@
 import UIKit
 
 private let reuseIdentifier = "Cell"
+//FooterView
+private let footerViewIdentifier = "FooterView"
+
+private struct Config {
+    static let count = 2
+    static let itemWidth = (UIScreen.main.bounds.width-CGFloat((count-1)*10)) / CGFloat(count)
+    static let itemHeight = (UIScreen.main.bounds.height) / CGFloat((count + 1))
+}
 
 class VoteListCollectionViewController: UICollectionViewController {
     
@@ -17,6 +25,7 @@ class VoteListCollectionViewController: UICollectionViewController {
         
         let detail = VoteRankTableViewController()
         detail.title = "排名"
+        detail.voteList = voteList
         self.navigationController?.pushViewController(detail, animated: true)
     }
     
@@ -26,28 +35,32 @@ class VoteListCollectionViewController: UICollectionViewController {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
-        let width = (UIScreen.main.bounds.width-3*10)/2
-        let height = (UIScreen.main.bounds.height)/3
-        layout.itemSize = CGSize(width: width, height: height)
+        layout.itemSize = CGSize(width: Config.itemWidth, height: Config.itemHeight)
         layout.scrollDirection = .vertical
         super.init(collectionViewLayout: layout)
         
         //添加头部布局
         layout.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 120)
+        //添加尾部布局
+        layout.footerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 80)
         
         setupUI()
         
         //加载测试数据
-        initData()
+        loadData()
+        
     }
     
     private func setupUI() {
         collectionView?.backgroundColor = UIColor.init(white: 0.93, alpha: 1)
+        //加入上拉加载视图
+        collectionView?.addSubview(indicatorView)
+        
+        //加入下拉刷新
+        collectionView?.addSubview(refresh)
         
         collectionView?.addSubview(headerBtn)
         collectionView?.addSubview(searchBar)
-        
-        searchBar.delegate = self
         
         headerBtn.snp.makeConstraints { (make) in
             make.centerX.equalTo((collectionView?.snp.centerX)!)
@@ -63,12 +76,40 @@ class VoteListCollectionViewController: UICollectionViewController {
             //设置宽度：否则无法显示
             make.width.equalTo(UIScreen.main.bounds.width)
         }
-        
+        //
+        searchBar.delegate = self
+        //
         headerBtn.addTarget(self, action: "headerBtnDidClick", for: .touchUpInside)
-        
+        //下拉刷新监听
+        refresh.addTarget(self, action: "loadData", for: .valueChanged)
     }
     
-    private var searchBar: UISearchBar = {
+    //懒加载
+    
+    //上拉加载
+    private lazy var indicatorView: UIActivityIndicatorView = {
+        let aiv = UIActivityIndicatorView()
+        aiv.color = UIColor.randomColor
+        //        aiv.hidesWhenStopped = true
+        aiv.activityIndicatorViewStyle = .gray
+        return aiv
+    }()
+    
+    private lazy var testView: UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor.randomColor
+        return v
+    }()
+    
+    //下拉刷新
+    private lazy var refresh: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.tintColor = UIColor.randomColor
+        refresh.backgroundColor = UIColor.randomColor
+        return refresh
+    }()
+    
+    private lazy var searchBar: UISearchBar = {
         let search = UISearchBar()
         search.contentMode = .redraw
         search.translatesAutoresizingMaskIntoConstraints = false
@@ -76,12 +117,13 @@ class VoteListCollectionViewController: UICollectionViewController {
         search.searchBarStyle = .minimal
         search.placeholder = "输入关键字搜索"
 //        search.backgroundColor = UIColor.green
+        search.text = "测试"
         search.showsCancelButton = true
         search.sizeToFit()
         return search
     }()
     
-    private var headerBtn: UIButton = {
+    private lazy var headerBtn: UIButton = {
         let header = UIButton()
         header.setTitleColor(UIColor.white, for: .normal)
         header.backgroundColor = UIColor.orange
@@ -92,15 +134,16 @@ class VoteListCollectionViewController: UICollectionViewController {
         return header
     }()
     
-    private func initData() {
-        //获取数据
+    @objc private func loadData() {
+        /**
+        //获取本地测试数据
         let test = Bundle.main.url(forResource: "test", withExtension: "json")
-        debugPrint("test ----> \(test!)")
+//        debugPrint("test ----> \(test!)")
         do{
             let json = try String(contentsOf: test!)
-            debugPrint("json ----> \(json)")
+//            debugPrint("json ----> \(json)")
             let voteLists = try JSONSerialization.jsonObject(with: json.data(using: String.Encoding.utf8)!, options: JSONSerialization.ReadingOptions.mutableLeaves) as? NSArray
-            debugPrint("voteLists ----> \(voteLists?.description)")
+//            debugPrint("voteLists ----> \(voteLists?.description)")
             voteList = [VoteListModel]()
             for item in voteLists! {
                 if let dict = item as? [String:Any] {
@@ -108,10 +151,26 @@ class VoteListCollectionViewController: UICollectionViewController {
                     voteList?.append(vote)
                 }
             }
-            
         }catch {
             debugPrint("error ----> \(error)")
         }
+        */
+        //联网获取数据源
+        let url = "http://shiyan360.cn/api/vote_video"
+        //内部引用self：会造成循环引用 加上weak
+        NetworkTools.sharedSingleton.requestVoteList(urlStr: url) { [weak self] (votes) in
+            self?.voteList?.removeAll()
+            self?.voteList = votes
+            
+            debugPrint("currentThread 1 ----> \(Thread.current)")
+            self?.collectionView?.reloadData()
+            
+            //菊花停止转动
+            if (self?.refresh.isRefreshing)! {
+                self?.refresh.endRefreshing()
+            }
+        }
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -123,17 +182,18 @@ class VoteListCollectionViewController: UICollectionViewController {
         
         // Register cell classes
         self.collectionView!.register(VoteListCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
+        //注册尾部视图
+        self.collectionView?.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerViewIdentifier)
+        
+        //子线程获取活动是否过期
+        NetworkTools.sharedSingleton.isOverdue { (isOver) in
+            let standard = UserDefaults.standard
+            standard.set(isOver, forKey: "isOverdue")
+            standard.synchronize()
+        }
     }
 
     // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 2
-    }
-
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
@@ -146,7 +206,7 @@ class VoteListCollectionViewController: UICollectionViewController {
         // Configure the cell
         cell.vote = voteList?[indexPath.item]
         cell.voteBtnDelegate = self
-    
+        debugPrint("cell: \(indexPath.item)")
         return cell
     }
 }
@@ -165,6 +225,11 @@ extension VoteListCollectionViewController: VoteBtnDelegate {
             let nav = UINavigationController(rootViewController: detail)
             detail.vote = cell.vote
             detail.title = "投票详情页"
+            //将活动过期情况传递过去
+            let standard = UserDefaults.standard
+            if let isOver = standard.value(forKey: "isOverdue") as? Bool {
+                detail.isOverdue = isOver
+            }
             self.navigationController?.pushViewController(detail, animated: true)
         }
         alert.addAction(cancel)
@@ -174,5 +239,70 @@ extension VoteListCollectionViewController: VoteBtnDelegate {
 }
 
 extension VoteListCollectionViewController: UISearchBarDelegate {
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        debugPrint("searchBar textDidChange: \(searchText)")
+//    }
+    
+    /**
+     *  Desc: 按下键盘上搜索Search
+     *  Param:
+     */
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        //获取到关键字
+        if let keyword = searchBar.text {
+            //发送搜索请求数据
+            //联网获取数据源
+            let url = "http://shiyan360.cn/api/vote_search"
+            //内部引用self：会造成循环引用 加上weak
+            NetworkTools.sharedSingleton.requestSearchData(urlStr: url, keyword: keyword, completionHandler: { [weak self] (votes) in
+                self?.voteList?.removeAll()
+                self?.voteList = votes
+                
+                debugPrint("currentThread 2 ----> \(Thread.current)")
+                //需要在主线程更新UI
+                DispatchQueue.main.async {
+                    self?.collectionView?.reloadData()
+                }
+            })
+        }
+        
+    }
+    
+    /**
+     *  Desc: 用户点击取消Cancel
+     *  Param:
+     */
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        //隐藏键盘
+        searchBar.resignFirstResponder()
+        //将数据源替换成正常状态
+        //联网获取数据源
+        let url = "http://shiyan360.cn/api/vote_video"
+        //内部引用self：会造成循环引用 加上weak
+        NetworkTools.sharedSingleton.requestVoteList(urlStr: url) { [weak self] (votes) in
+            self?.voteList?.removeAll()
+            self?.voteList = votes
+            
+            debugPrint("currentThread 3 ----> \(Thread.current)")
+            DispatchQueue.main.async {
+                self?.collectionView?.reloadData()
+            }
+        }
+    }
+}
+
+extension VoteListCollectionViewController {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let footView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerViewIdentifier, for: indexPath)
+        footView.backgroundColor = UIColor.randomColor
+        //添加上拉加载视图
+        footView.addSubview(indicatorView)
+        //添加约束
+        indicatorView.snp.makeConstraints { (make) in
+            make.edges.equalTo(footView)
+        }
+        indicatorView.startAnimating()
+        return footView
+    }
     
 }

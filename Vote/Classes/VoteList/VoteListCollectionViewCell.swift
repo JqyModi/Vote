@@ -63,9 +63,10 @@ class VoteListCollectionViewCell: UICollectionViewCell {
             make.left.right.equalTo(contentView)
         }
         
-        coverImageView.sd_setImage(with: URL(string: (vote?.image)!), completed: nil)
-        titleLabel.text = vote?.title
-        totalLabel.text = "当前票数：" + (vote?.total!)!
+        //http://shiyan360.cn/Public/Uploads/Chuangke/20180106/thumb_5a503bb52effd.png
+        coverImageView.sd_setImage(with: URL(string: ("http://shiyan360.cn" + (vote?.img_url_s)!)), completed: nil)
+        titleLabel.text = vote?.name
+        totalLabel.text = "当前票数：" + (vote?.piao!)!
         voteBtn.setTitle("投票", for: .normal)
         
         //添加按钮点击事件
@@ -73,14 +74,14 @@ class VoteListCollectionViewCell: UICollectionViewCell {
     }
     
     
-    private var coverImageView: UIImageView = {
+    private lazy var coverImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.lightGray
         imageView.sizeToFit()
         return imageView
     }()
     
-    private var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = UIColor.brown
         title.sizeToFit()
@@ -89,7 +90,7 @@ class VoteListCollectionViewCell: UICollectionViewCell {
         return title
     }()
     
-    private var descLabel: UILabel = {
+    private lazy var descLabel: UILabel = {
         let desc = UILabel()
         desc.textColor = UIColor.brown
         desc.sizeToFit()
@@ -98,7 +99,7 @@ class VoteListCollectionViewCell: UICollectionViewCell {
         return desc
     }()
     
-    private var totalLabel: UILabel = {
+    private lazy var totalLabel: UILabel = {
         let total = UILabel()
         total.textColor = UIColor.brown
         total.sizeToFit()
@@ -107,7 +108,7 @@ class VoteListCollectionViewCell: UICollectionViewCell {
         return total
     }()
     
-    private var voteBtn: UIButton = {
+    private lazy var voteBtn: UIButton = {
         let vote = UIButton()
         vote.setTitleColor(UIColor.white, for: .normal)
         vote.backgroundColor = UIColor.orange

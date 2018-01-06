@@ -19,10 +19,10 @@ class VoteDetailViewController: UIViewController {
         let text = totalLabel.text!
         let s = "当前票数："
         let totalStr = text.substring(from: s.endIndex)
-        if Int(totalStr) == Int((vote?.total)!)! + 1 {
+        if Int(totalStr) == Int((vote?.piao)!)! + 1 {
             msg = "您已经为她投上一票，请勿重复投票 ~ 如果需要再次为她投票，请重新观看该视频 ~ 谢谢"
         }else {
-            totalLabel.text = "当前票数：\(Int((vote?.total)!)! + 1)"
+            totalLabel.text = "当前票数：\(Int((vote?.piao)!)! + 1)"
             msg = "投票成功 ~ 您可以跳转到投票页查看她当前的排名情况，是否跳转？"
         }
         
@@ -39,20 +39,23 @@ class VoteDetailViewController: UIViewController {
         alert.addAction(ok)
         self.present(alert, animated: true, completion: nil)
     }
-    
+    //播放器控制层
     var proLabel: UILabel?
     var videoSlider: ASValueTrackingSlider?
+    //活动是否过期
+    var isOverdue = false
     
     var vote: VoteListModel? {
         didSet {
-            let url = URL(string: (vote?.video!)!)
+            let url = URL(string: ("http://shiyan360.cn" + (vote?.video_url!)!))
             debugPrint("url ----> \(url?.absoluteString)")
             //基本播放器设置
             let playerModel = ZFPlayerModel()
             playerModel.videoURL = url
             playerModel.fatherView = videoView
-            playerModel.title = vote?.title!
-            playerModel.placeholderImageURLString = vote?.image!
+            playerModel.title = vote?.name!
+            
+            playerModel.placeholderImageURLString = "http://shiyan360.cn" + (vote?.img_url_s!)!
             
             //设置控制层View
             let controlView = VotePlayerControlView()
@@ -80,69 +83,20 @@ class VoteDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        debugPrint("活动截止情况：\(isOverdue())")
+        debugPrint("活动截止情况：\(isOverdue)")
+        if isOverdue {
+            voteBtn.setTitle("活动已结束 ~", for: .normal)
+            voteBtn.isEnabled = false
+            //隐藏票数Label
+            totalLabel.isHidden = true
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
-    /**
-     *  Desc: 判断当前活动是否过期
-     *  Param:
-     */
-    private func isOverdue() -> Bool {
-        //记录活动是否过期
-        var result = true
-        //判断当前活动是否过期
-        //http://192.168.0.153:91/api/activity
-        //let urlStr = "http://shiyan360.cn/api/activity"
-        let urlStr = "http://192.168.0.153:91/api/activity"
-        NetworkTools.sharedSingleton.requestDeadline(urlStr: urlStr) { (data, response, error) in
-            if error == nil {
-                debugPrint("data = \(data)")
-                debugPrint("response = \(response)")
-                
-                //处理服务器返回来的数据
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves)
-                    if let dict = json as? [String : Any] {
-                        debugPrint("dict = \(dict)")
-                        let endTime = dict["endtime"] as? TimeInterval
-                        debugPrint("endTime = \(endTime)")
-                        //比较当前时间与截止时间
-                        result = self.compareEndTime(dict: dict)
-                    }
-                }catch {
-                    debugPrint("catch error = \(error)")
-                }
-                
-            }else{
-                debugPrint("error = \(error)")
-            }
-        }
-        return result
-    }
-    
-    /**
-     *  Desc: 比较当前时间与获取截止时间
-     *  Param: dict 包含活动截止时间
-     */
-    private func compareEndTime(dict: [String : Any]?) -> Bool {
-        //获取当前时间
-        let currentTime = NSTimeIntervalSince1970
-        debugPrint("currentTime = \(currentTime)")
-        //获取活动截止时间
-        let activityTime = dict!["endtime"] as! String
-        debugPrint("activityTime = \(activityTime)")
-        if currentTime > Double(activityTime)! {
-            debugPrint("活动已过期 ~")
-            return false
-        }else {
-            debugPrint("活动有效 ~")
-            return true
-        }
-    }
+
     
     private func setupUI() {
         view.backgroundColor = UIColor.init(white: 0.93, alpha: 1)
@@ -187,29 +141,29 @@ class VoteDetailViewController: UIViewController {
         }
         
         //数据展示
-        descLabel.text = "简介：" + (vote?.desc!)!
+        descLabel.text = "简介：" + (vote?.remark!)!
         voteBtn.setTitle("为她投票", for: .normal)
-        totalLabel.text = "当前票数：" + (vote?.total!)!
+        totalLabel.text = "当前票数：" + (vote?.piao!)!
         
         //点击事件
         voteBtn.addTarget(self, action: "voteBtnDidClick", for: .touchUpInside)
     }
     
     //懒加载一个视频播放器
-    private var videoPlayer: ZFPlayerView = {
+    private lazy var videoPlayer: ZFPlayerView = {
         let video = ZFPlayerView()
 //        let playerModel = ZFPlayerModel()
 //        video.playerControlView(nil, playerModel: playerModel)
         return video
     }()
     
-    private var videoView: UIView = {
+    private lazy var videoView: UIView = {
         let v = UIView()
         v.backgroundColor = UIColor.magenta
         return v
     }()
     
-    private var descLabel: UILabel = {
+    private lazy var descLabel: UILabel = {
         let desc = UILabel()
         desc.textColor = UIColor.brown
         desc.sizeToFit()
@@ -219,7 +173,7 @@ class VoteDetailViewController: UIViewController {
         return desc
     }()
     
-    private var totalLabel: UILabel = {
+    private lazy var totalLabel: UILabel = {
         let total = UILabel()
         total.textColor = UIColor.brown
         total.sizeToFit()
@@ -228,7 +182,7 @@ class VoteDetailViewController: UIViewController {
         return total
     }()
     
-    private var voteBtn: UIButton = {
+    private lazy var voteBtn: UIButton = {
         let vote = UIButton()
         vote.setTitleColor(UIColor.white, for: .normal)
         vote.backgroundColor = UIColor.orange

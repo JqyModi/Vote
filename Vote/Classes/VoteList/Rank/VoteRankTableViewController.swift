@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let reuseIdentifier = "reuseIdentifier"
+private let reuseIdentifier = "Cell"
 class VoteRankTableViewController: UITableViewController {
 
     var voteList: [VoteListModel]?
@@ -17,7 +17,7 @@ class VoteRankTableViewController: UITableViewController {
         super.viewDidLoad()
 //        debugPrint("VoteListModel.description() -----> \(VoteListModel(dict: nil).description)")
         
-        initData()
+//        initData()
         setupUI()
         
     }

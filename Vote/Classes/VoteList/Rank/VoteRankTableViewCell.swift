@@ -73,19 +73,19 @@ class VoteRankTableViewCell: UITableViewCell {
         }
         
         //数据展示
-        titleLabel.text = vote?.title!
-        totalLabel.text = vote?.total!
+        titleLabel.text = vote?.name!
+        totalLabel.text = vote?.piao!
     }
     
     
-    private var coverImageView: UIImageView = {
+    private lazy var coverImageView: UIImageView = {
        let imageView = UIImageView()
 //        imageView.backgroundColor = UIColor.lightGray
         imageView.sizeToFit()
         return imageView
     }()
     
-    private var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = UIColor.brown
         title.sizeToFit()
@@ -93,7 +93,7 @@ class VoteRankTableViewCell: UITableViewCell {
         return title
     }()
     
-    private var totalLabel: UILabel = {
+    private lazy var totalLabel: UILabel = {
         let total = UILabel()
         total.textColor = UIColor.brown
         total.sizeToFit()

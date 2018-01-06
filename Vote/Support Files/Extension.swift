@@ -507,6 +507,10 @@ extension UIColor {
 //            alpha: CGFloat(1.0)
 //        )
 //    }
+    
+    static var randomColor: UIColor {
+        return UIColor(red: CGFloat(Int(arc4random()%256)) / 255, green: CGFloat(Int(arc4random()%256)) / 255, blue: CGFloat(Int(arc4random()%256)) / 255, alpha: 1.0)
+    }
 }
 
 extension NSObject {
